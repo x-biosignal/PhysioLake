@@ -65,7 +65,7 @@ PhysioExperiment adapter for OmicsLake"></head><body>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>An <a href="https://rdrr.io/pkg/OmicsLake/man/LakeAdapter.html" class="external-link">OmicsLake::LakeAdapter</a> that stores and retrieves <a href="https://x-biosignal.r-universe.dev/PhysioCore/reference/PhysioExperiment.html" class="external-link">PhysioCore::PhysioExperiment</a>
+    <p>An <a href="https://rdrr.io/pkg/OmicsLake/man/LakeAdapter.html" class="external-link">OmicsLake::LakeAdapter</a> that stores and retrieves <a href="https://x-biosignal.github.io/PhysioCore//reference/PhysioExperiment.html" class="external-link">PhysioCore::PhysioExperiment</a>
 objects in an OmicsLake with full fidelity.</p>
 <p>A <code>PhysioExperiment</code> is a <code>SummarizedExperiment</code> subclass with one extra slot
 (<code>samplingRate</code>); its provenance, events, and derived estimates live in
@@ -75,7 +75,7 @@ objects in an OmicsLake with full fidelity.</p>
 This adapter inherits <code>SEAdapter</code> and adds only that missing piece: it stashes
 the sampling rate in metadata on <code>put()</code> and rebuilds a <code>PhysioExperiment</code> on
 <code><a href="https://rdrr.io/r/base/get.html" class="external-link">get()</a></code>. Because provenance is carried in <code>metadata()</code>, it survives the round
-trip unchanged (verified: <code><a href="https://x-biosignal.r-universe.dev/PhysioCore/reference/provenanceHash.html" class="external-link">provenanceHash()</a></code> is identical before and after),
+trip unchanged (verified: <code><a href="https://x-biosignal.github.io/PhysioCore//reference/provenanceHash.html" class="external-link">provenanceHash()</a></code> is identical before and after),
 so the ecosystem's per-object (micro) W3C-PROV provenance lands intact next to
 OmicsLake's cross-dataset (macro) lineage. Assays that are not 2-D matrices
 (e.g. epoched <em>time x channel x trial</em> arrays), which the generic <code>SEAdapter</code>

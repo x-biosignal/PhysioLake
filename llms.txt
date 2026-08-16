@@ -28,7 +28,7 @@ colData / rowData / metadata but reconstructs a *plain*
 rate. `PhysioExperimentAdapter` inherits it and restores exactly that —
 so a round trip preserves the class, the sampling rate, every assay
 bit-identically, and the **W3C-PROV provenance** (verified:
-[`provenanceHash()`](https://x-biosignal.r-universe.dev/PhysioCore/reference/provenanceHash.html)
+[`provenanceHash()`](https://x-biosignal.github.io/PhysioCore//reference/provenanceHash.html)
 is identical before and after). The ecosystem’s per-object (micro)
 provenance thus lands intact alongside the lake’s cross-dataset (macro)
 lineage.
@@ -62,7 +62,7 @@ nothing intercepts them and OmicsLake’s default object storage
 serialises them with full fidelity — verified to preserve the class, all
 slots, and **nested `PhysioExperiment` provenance** (a MultiRate’s inner
 PE keeps its
-[`provenanceHash()`](https://x-biosignal.r-universe.dev/PhysioCore/reference/provenanceHash.html)).
+[`provenanceHash()`](https://x-biosignal.github.io/PhysioCore//reference/provenanceHash.html)).
 No bespoke storage adapters are needed for these; PhysioLake pins that
 guarantee with tests.
 
@@ -70,7 +70,7 @@ guarantee with tests.
 
 [`physioPut()`](https://x-biosignal.github.io/PhysioLake/reference/physioPut.md)
 stores an object *and* its W3C-PROV operation DAG (from
-[`PhysioCore::provenance()`](https://x-biosignal.r-universe.dev/PhysioCore/reference/provenance.html))
+[`PhysioCore::provenance()`](https://x-biosignal.github.io/PhysioCore//reference/provenance.html))
 as a queryable companion table, recorded as a **lineage dependency** of
 the object via OmicsLake’s `depends_on`. The per-object provenance thus
 becomes a first-class node in the cross-dataset lineage:
@@ -109,9 +109,9 @@ them).
 
 ## Status
 
-Draft (0.1.0); `R CMD check` clean. Covers PhysioExperiment (adapter,
-including 3-D epoched *time x channel x trial* assays), the other physio
-types (`MultiRatePhysioExperiment`, `PhysioLongitudinal`,
+Early-stage (0.1.0); `R CMD check` clean. Covers PhysioExperiment
+(adapter, including 3-D epoched *time x channel x trial* assays), the
+other physio types (`MultiRatePhysioExperiment`, `PhysioLongitudinal`,
 `AnalysisResult`; default serialization), the provenance bridge, and run
 bundles. A public x-biosignal / r-universe release needs OmicsLake
 resolvable in that build — it is published at

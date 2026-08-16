@@ -2,7 +2,7 @@
 
 Wraps [OmicsLake::Lake](https://rdrr.io/pkg/OmicsLake/man/Lake.html)'s
 `put()` so that the object's W3C-PROV operation DAG (from
-[`PhysioCore::provenance()`](https://x-biosignal.r-universe.dev/PhysioCore/reference/provenance.html))
+[`PhysioCore::provenance()`](https://x-biosignal.github.io/PhysioCore//reference/provenance.html))
 is stored as a queryable companion table and recorded as a **lineage
 dependency** of the object (via `put(..., depends_on =)`). The
 ecosystem's per-object (micro) provenance thus becomes a first-class
@@ -28,7 +28,7 @@ physioPut(lake, name, x, tags = "physio", provenance_suffix = "__prov")
 - x:
 
   A Physio object, e.g. a
-  [PhysioCore::PhysioExperiment](https://x-biosignal.r-universe.dev/PhysioCore/reference/PhysioExperiment.html).
+  [PhysioCore::PhysioExperiment](https://x-biosignal.github.io/PhysioCore//reference/PhysioExperiment.html).
 
 - tags:
 

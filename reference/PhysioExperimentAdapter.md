@@ -13,7 +13,7 @@ An R6 generator for the `PhysioExperimentAdapter`.
 An
 [OmicsLake::LakeAdapter](https://rdrr.io/pkg/OmicsLake/man/LakeAdapter.html)
 that stores and retrieves
-[PhysioCore::PhysioExperiment](https://x-biosignal.r-universe.dev/PhysioCore/reference/PhysioExperiment.html)
+[PhysioCore::PhysioExperiment](https://x-biosignal.github.io/PhysioCore//reference/PhysioExperiment.html)
 objects in an OmicsLake with full fidelity.
 
 A `PhysioExperiment` is a `SummarizedExperiment` subclass with one extra
@@ -26,7 +26,7 @@ adds only that missing piece: it stashes the sampling rate in metadata
 on `put()` and rebuilds a `PhysioExperiment` on
 [`get()`](https://rdrr.io/r/base/get.html). Because provenance is
 carried in `metadata()`, it survives the round trip unchanged (verified:
-[`provenanceHash()`](https://x-biosignal.r-universe.dev/PhysioCore/reference/provenanceHash.html)
+[`provenanceHash()`](https://x-biosignal.github.io/PhysioCore//reference/provenanceHash.html)
 is identical before and after), so the ecosystem's per-object (micro)
 W3C-PROV provenance lands intact next to OmicsLake's cross-dataset
 (macro) lineage. Assays that are not 2-D matrices (e.g. epoched *time x

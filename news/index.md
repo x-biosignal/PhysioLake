@@ -23,7 +23,7 @@
   generic SummarizedExperiment adapter would drop, and — because
   provenance rides in `metadata()` — the W3C-PROV provenance survives
   the round trip unchanged
-  ([`provenanceHash()`](https://x-biosignal.r-universe.dev/PhysioCore/reference/provenanceHash.html)
+  ([`provenanceHash()`](https://x-biosignal.github.io/PhysioCore//reference/provenanceHash.html)
   identical before and after). Registered on load via `.onLoad`;
   re-runnable with
   [`registerPhysioAdapters()`](https://x-biosignal.github.io/PhysioLake/reference/registerPhysioAdapters.md).
@@ -37,7 +37,7 @@
   /
   [`physioProvenance()`](https://x-biosignal.github.io/PhysioLake/reference/physioProvenance.md):
   a provenance bridge that stores an object’s W3C-PROV op-DAG (from
-  [`PhysioCore::provenance()`](https://x-biosignal.r-universe.dev/PhysioCore/reference/provenance.html))
+  [`PhysioCore::provenance()`](https://x-biosignal.github.io/PhysioCore//reference/provenance.html))
   as a queryable companion table and records it as a lineage dependency
   (`put(..., depends_on=)`), so the per-object (micro) provenance
   becomes a first-class node in OmicsLake’s cross-dataset (macro)
