@@ -1,0 +1,39 @@
+Package: PhysioLake
+Title: Versioned, Lineage-Tracked Data Management for the Physio Ecosystem
+Version: 0.1.1
+Authors@R:
+    person(given = "Yusuke",
+           family = "Matsui",
+           role = c("aut", "cre"),
+           email = "mail.to.matsui@gmail.com")
+Description: Integrates the PhysioExperiment ecosystem with 'OmicsLake', a
+    versioned, on-disk data-management engine built on 'DuckDB', 'Apache Arrow'
+    and 'Parquet' with automatic dataset-level lineage tracking. Rather than
+    reimplementing a data lake, PhysioLake inherits the domain-agnostic OmicsLake
+    core (storage backend, snapshots and time-travel, cross-dataset lineage,
+    query layer) and registers physiology-specific adapters and utilities:
+    'PhysioExperiment' objects are stored and retrieved with full fidelity,
+    preserving the sampling-rate slot and the W3C-PROV provenance held in object
+    metadata. This connects the ecosystem's per-object (micro) provenance with
+    the lake's cross-dataset (macro) lineage.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.3
+Depends:
+    R (>= 4.3.0),
+    PhysioCore
+Imports:
+    OmicsLake (>= 0.99.4),
+    R6,
+    methods,
+    S4Vectors,
+    SummarizedExperiment
+Suggests:
+    PhysioPreprocess,
+    testthat (>= 3.2.0)
+Remotes:
+    matsui-lab/OmicsLake
+Additional_repositories:
+    https://matsui-lab.r-universe.dev
+Config/testthat/edition: 3
