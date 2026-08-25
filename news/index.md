@@ -1,5 +1,18 @@
 # Changelog
 
+## PhysioLake 0.1.2
+
+- OmicsLake moved from Imports to Suggests so PhysioLake builds and
+  installs publicly without the private OmicsLake package. The
+  OmicsLake-backed adapter registration
+  ([`registerPhysioAdapters()`](https://x-biosignal.github.io/PhysioLake/reference/registerPhysioAdapters.md))
+  is guarded with
+  [`requireNamespace()`](https://rdrr.io/r/base/ns-load.html) and errors
+  informatively when OmicsLake is absent; the backend-agnostic
+  provenance/bundle helpers
+  (`physioPut`/`physioProvenance`/`physioPutBundle`) work with any lake
+  object regardless.
+
 ## PhysioLake 0.1.1
 
 - Tests now build their OmicsLake from a project name under a temporary

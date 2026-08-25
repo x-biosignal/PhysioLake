@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">PhysioLake</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -50,6 +50,10 @@
 
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.1.2" id="physiolake-012">PhysioLake 0.1.2<a class="anchor" aria-label="anchor" href="#physiolake-012"></a></h2>
+<ul><li>OmicsLake moved from Imports to Suggests so PhysioLake builds and installs publicly without the private OmicsLake package. The OmicsLake-backed adapter registration (<code><a href="../reference/registerPhysioAdapters.html">registerPhysioAdapters()</a></code>) is guarded with <code><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace()</a></code> and errors informatively when OmicsLake is absent; the backend-agnostic provenance/bundle helpers (<code>physioPut</code>/<code>physioProvenance</code>/<code>physioPutBundle</code>) work with any lake object regardless.</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.1.1" id="physiolake-011">PhysioLake 0.1.1<a class="anchor" aria-label="anchor" href="#physiolake-011"></a></h2>
 <ul><li>Tests now build their OmicsLake from a project name under a temporary root instead of passing a <code><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile()</a></code> path as the project identifier. The old form worked on Unix by accident but broke the DuckDB backend on Windows, where the drive-letter colon makes the resolved lake path invalid. No runtime change.</li>
