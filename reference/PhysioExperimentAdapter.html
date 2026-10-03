@@ -9,7 +9,7 @@ PhysioExperiment adapter for OmicsLake"></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">PhysioLake</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.3</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -18,6 +18,10 @@ PhysioExperiment adapter for OmicsLake"></head><body>
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto"><li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/physiolake.html">Versioned, lineage-tracked storage for PhysioExperiment objects</a></li>
+  </ul></li>
       </ul><ul class="navbar-nav"><li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-ecosystem" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Ecosystem</button>
   <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-ecosystem"><li><a class="external-link dropdown-item" href="https://x-biosignal.github.io/PhysioCore/">PhysioCore</a></li>
@@ -65,7 +69,7 @@ PhysioExperiment adapter for OmicsLake"></head><body>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>An <a href="https://rdrr.io/pkg/OmicsLake/man/LakeAdapter.html" class="external-link">OmicsLake::LakeAdapter</a> that stores and retrieves <a href="https://x-biosignal.github.io/PhysioCore//reference/PhysioExperiment.html" class="external-link">PhysioCore::PhysioExperiment</a>
+    <p>An <a href="https://rdrr.io/pkg/OmicsLake/man/LakeAdapter.html" class="external-link">OmicsLake::LakeAdapter</a> that stores and retrieves <a href="https://x-biosignal.r-universe.dev/PhysioExperiment/reference/PhysioExperiment.html" class="external-link">PhysioExperiment</a>
 objects in an OmicsLake with full fidelity.</p>
 <p>A <code>PhysioExperiment</code> is a <code>SummarizedExperiment</code> subclass with one extra slot
 (<code>samplingRate</code>); its provenance, events, and derived estimates live in
@@ -75,7 +79,7 @@ objects in an OmicsLake with full fidelity.</p>
 This adapter inherits <code>SEAdapter</code> and adds only that missing piece: it stashes
 the sampling rate in metadata on <code>put()</code> and rebuilds a <code>PhysioExperiment</code> on
 <code><a href="https://rdrr.io/r/base/get.html" class="external-link">get()</a></code>. Because provenance is carried in <code>metadata()</code>, it survives the round
-trip unchanged (verified: <code><a href="https://x-biosignal.github.io/PhysioCore//reference/provenanceHash.html" class="external-link">provenanceHash()</a></code> is identical before and after),
+trip unchanged (verified: <code><a href="https://x-biosignal.r-universe.dev/PhysioExperiment/reference/provenanceHash.html" class="external-link">provenanceHash()</a></code> is identical before and after),
 so the ecosystem's per-object (micro) W3C-PROV provenance lands intact next to
 OmicsLake's cross-dataset (macro) lineage. Assays that are not 2-D matrices
 (e.g. epoched <em>time x channel x trial</em> arrays), which the generic <code>SEAdapter</code>
@@ -208,6 +212,16 @@ adapter, which is 100).</p><div class="section">
 
     </div>
 
+    <div class="section level2">
+    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"OmicsLake"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="va">adapter</span> <span class="op">&lt;-</span> <span class="va">PhysioExperimentAdapter</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">adapter</span><span class="op">$</span><span class="fu">name</span><span class="op">(</span><span class="op">)</span>       <span class="co"># "PhysioExperiment"</span></span></span>
+<span class="r-in"><span>  <span class="va">adapter</span><span class="op">$</span><span class="fu">priority</span><span class="op">(</span><span class="op">)</span>   <span class="co"># 200, above the generic SummarizedExperiment adapter</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 200</span>
+</code></pre></div>
+    </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>
 

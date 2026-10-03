@@ -16,3 +16,12 @@ registerPhysioAdapters()
 ## Value
 
 Invisibly `TRUE`.
+
+## Examples
+
+``` r
+if (requireNamespace("OmicsLake", quietly = TRUE)) {
+  # Re-run after OmicsLake::clear_adapters(); also called on package load.
+  registerPhysioAdapters()
+}
+```

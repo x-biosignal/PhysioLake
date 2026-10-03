@@ -52,3 +52,31 @@ over `edges`) so each `depends_on` target already exists.
 ## See also
 
 [`physioPut()`](https://x-biosignal.github.io/PhysioLake/reference/physioPut.md)
+
+## Examples
+
+``` r
+if (requireNamespace("OmicsLake", quietly = TRUE)) {
+  lake <- OmicsLake::Lake$new(basename(tempfile("lake")), root = tempdir())
+  components <- list(
+    prereg = data.frame(key = "alpha", value = 1),
+    result = data.frame(metric = "hr", value = 72)
+  )
+  # `result` depends on `prereg`; the bundle stores that lineage edge.
+  physioPutBundle(lake, "run001", components,
+                  edges = list(result = "prereg"))
+  lake$deps("run001__result")
+}
+#> duckdb keeps downloaded extensions and secrets in a temporary directory:
+#> ℹ /tmp/RtmpBjG6Iw/duckdb
+#> This is removed when the R session ends.
+#> • Extensions are re-downloaded each session.
+#> • Secrets are lost.
+#> ℹ Run duckdb(shared_home = TRUE) (or create ~/.duckdb) to keep them (suitable for most users).
+#> ℹ Run duckdb(shared_home = FALSE) to accept the temporary directory (and silence this message).
+#> ℹ See ?duckdb_storage for details and alternatives.
+#>      parent_name parent_type relationship_type          created_at parent_ref
+#> 1 run001__prereg       table      derived_from 2026-10-03 13:28:49    @latest
+#>        parent_version_id
+#> 1 run001__prereg@current
+```
