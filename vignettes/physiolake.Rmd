@@ -1,0 +1,91 @@
+---
+title: "Versioned, lineage-tracked storage for PhysioExperiment objects"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Versioned, lineage-tracked storage for PhysioExperiment objects}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+# Every lake chunk is gated on the optional OmicsLake backend so this vignette
+# builds whether or not the backend is installed.
+has_ol <- requireNamespace("OmicsLake", quietly = TRUE)
+```
+
+PhysioLake connects the PhysioExperiment ecosystem to
+[OmicsLake](https://github.com/matsui-lab/OmicsLake) -- a versioned, on-disk
+data-management engine (DuckDB + Apache Arrow + Parquet) with automatic
+cross-dataset lineage. PhysioLake does **not** reimplement a data lake; it adds
+a thin layer so that:
+
+* a `PhysioExperiment` round-trips with **full fidelity** -- its class identity,
+  `samplingRate` slot, non-2-D (epoched) assays, and W3C-PROV metadata all
+  survive, and
+* each object's **per-object (micro) provenance** becomes a first-class node in
+  OmicsLake's **cross-dataset (macro) lineage**.
+
+OmicsLake is an optional backend (a `Suggests` dependency), so PhysioLake stays
+standalone-installable. The code below runs only when it is available:
+
+```{r avail}
+has_ol
+```
+
+## A tiny local lake
+
+A `Lake`'s first constructor argument is a project *name*, not a path; the lake
+lives under `root`. Here we create a throwaway lake in the session temp dir.
+
+```{r lake, eval = has_ol}
+library(PhysioLake)
+lake <- OmicsLake::Lake$new(basename(tempfile("lake")), root = tempdir())
+```
+
+## Store and retrieve a PhysioExperiment
+
+`physioPut()` stores the object (and, if present, its operation DAG as a
+queryable companion table wired in as a lineage dependency). `lake$get()`
+returns a genuine `PhysioExperiment`, not a bare `SummarizedExperiment`.
+
+```{r roundtrip, eval = has_ol}
+pe <- PhysioExperiment::PhysioExperiment(
+  assays = list(raw = matrix(as.numeric(1:20), nrow = 10, ncol = 2)),
+  samplingRate = 100
+)
+physioPut(lake, "subj01", pe)
+
+restored <- lake$get("subj01")
+class(restored)
+PhysioExperiment::samplingRate(restored)
+```
+
+The sampling rate and class identity survive the round trip -- the piece the
+generic SummarizedExperiment adapter would otherwise drop.
+
+## Store a run bundle with internal lineage
+
+`physioPutBundle()` stores the parts of a reproducible run (pre-registration,
+results, reports, ...) as individual lake entries wired together with lineage
+edges, so the run's internal structure is queryable.
+
+```{r bundle, eval = has_ol}
+components <- list(
+  prereg = data.frame(key = "alpha", value = 1),
+  result = data.frame(metric = "hr", value = 72)
+)
+physioPutBundle(lake, "run001", components,
+                edges = list(result = "prereg"))
+
+# `result` records `prereg` as an upstream dependency:
+lake$deps("run001__result")
+```
+
+## Where to go next
+
+* `?physioPut` / `?physioProvenance` -- object storage and provenance retrieval.
+* `?physioPutBundle` -- storing a whole reproducible run.
+* `?PhysioExperimentAdapter` -- the fidelity-preserving storage adapter.
+* OmicsLake's own documentation for snapshots, time-travel, and lineage queries
+  (`lake$snap()`, `lake$tree()`, `lake$impact()`).
